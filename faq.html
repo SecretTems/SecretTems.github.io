@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>FAQs</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+	/* Applies "box-sizing: border-box" globally to include padding and border in element dimensions */
+	* {
+		box-sizing: border-box;
+	}
+
+	.account-popup {
+		display: none;
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: rgba(0, 0, 0, 0.5);
+		justify-content: center;
+		align-items: center;
+		z-index: 2;
+	}
+
+	.popup-content {
+		background-color: #fff;
+		padding: 20px;
+		border-radius: 8px;
+		border: 2px solid black;
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+		position: relative;
+		z-index: 3;
+		width: 250px;
+		height: 160px;
+	}
+
+	.popup-content .close {
+		position: absolute;
+		top: 10px;
+		right: 10px;
+		font-size: 20px;
+		cursor: pointer;
+	}
+	
+	body {
+		font-family: Arial, Helvetica, sans-serif;
+		margin: 0;
+		background-color: #f5f0ec;
+	}
+
+	.header {
+		padding: 7px;
+		text-align: center;
+		background-image: url(images/ictback.jpg);
+		background-size: cover;
+		background-position: center;
+		text-shadow:
+			-1px -1px 2px #000,
+			1px -1px 2px #000,
+			-1px 1px 2px #000,
+			1px 1px 2px #000;
+		color: white;
+	}
+
+	.header h1 {
+		font-size: 32px;
+	}
+
+	.navbar {
+		overflow: hidden;
+		background-color: #698696;
+	}
+
+	.navbar a {
+		float: left;
+		display: block;
+		color: white;
+		text-align: center;
+		padding: 14px 20px;
+		text-decoration: none;
+	}
+
+	.navbar a.right {
+		float: right;
+	}
+
+	.navbar a:hover {
+		background-color: #ddd;
+		color: black;
+	}
+
+	.about-content {
+		margin-left: 75px;
+		margin-right: 35px;
+		margin-top: 20px;
+	}
+	
+	.about-content ol {
+		margin-top: 15px;
+		list-style-type: none;
+	}
+
+	.about-content ol li {
+		margin-bottom: 30px;
+	}
+	
+	.about-content ol li p{
+		background-color: #BCD7E3;
+		display: inline-block;
+		margin-top: 12px;
+	}
+	
+	.about-content ol li p a,
+	.about-content ol li p a:visited {
+		color: #228B22;
+		text-decoration: none;
+	}
+	
+	.about-content ol li p a:hover {
+		text-decoration: underline;
+	}
+
+	.footer {
+		padding: 10px;
+		color: white;
+		text-align: center;
+		background: #698696;
+		bottom: 0;
+		width: 100%;
+	}
+</style>
+</head>
+<body>
+
+<div id="accountPopup" class="account-popup">
+  <div class="popup-content">
+    <span class="close" onclick="closeAccountPopup()">&times;</span>
+    <p id="accountUsername"></p>
+    <button onclick="logout()">Logout</button>
+  </div>
+</div>
+
+<div class="header">
+	<div><a href="cssclass.html"><img src="images/aaa.png" alt="asia logo" style="width:150px;height:150px;" class="left"></a></div>
+	<h1>Asia Pacific College of Business and Arts</h1>
+	<p><strong>Ad majorem Dei gloriam.</strong></p>
+	<p><strong>404600</strong></p>
+</div>
+
+<div class="navbar">
+	<a href="cssclass.html" target="_self">Home</a>
+	<a href="courses.html" target="_self">Courses</a>
+	<a href="Staff.html" target="_self">Staff</a>
+	<a href="activities.html" target="_self">Activities/News</a>
+	<a href="about.html" target="_self">Contacts/Info</a>
+	<a href="faq.html" target="_self">FAQs</a>
+	<a href="#" onclick="openSignUp()" style="float: right;">Sign Up/Login</a>
+	<a href="#" onclick="openAccountPopup()" style="float: right;">Account</a>
+	<a href="download/getgot.mp4" onclick="openFilesPage()" id="filesLinkContainer" style="display: none;">TOP SECRET FILES</a>
+</div>
+
+<div class="about-content">
+<h3><strong>FAQs:</strong></h3>
+	<ol>
+		<li>
+			<strong>How do I contact the admissions office for inquiries?</strong>
+			<br>
+			<p>You can reach out to our admissions office through the <a href="about.html">Contact/Info</a> page for contact details.</p>
+		</li>
+		<li>
+			<strong>How can I apply for admission to APCBA?</strong>
+			<br>
+			<p>You can find detailed information about the admission process in our administrators office.</p>
+		</li>
+		<li>
+			<strong>What courses does APCBA offer?</strong>
+			<br>
+			<p>Explore the list of courses we offer on the <a href="courses.html">Courses</a> page for detailed information.</p>
+		</li>
+		<li>
+			<strong>Are there any extracurricular activities at APCBA?</strong>
+			<br>
+			<p>Yes! here are our exciting <a href="activities.html">Activities & News</a>.</p>
+		</li>
+		<li>
+            <strong>What are the admission requirements for international students?</strong>
+            <br>
+            <p>International students can find detailed admission requirements on our international admissions page.</p>
+        </li>
+		<li>
+			<strong>Is APCBA LGBTQ+ friendly?</strong>
+			<br>
+			<p>Yes, APCBA is committed to creating an inclusive and supportive environment for everyone, regardless of sexual orientation, gender identity, or expression.
+			<br>We celebrate diversity and strive to foster a campus culture that values and respects individuals from all backgrounds.</p>
+		</li>
+        <li>
+            <strong>Is there a dress code for students?</strong>
+            <br>
+            <p>Yes, we have a dress code policy.</p>
+        </li>
+		<li>
+			<strong>Is smoking/vaping allowed on campus?</strong>
+			<br>
+			<p>No, APCBA is a smoke-free campus. Smoking/vaping is strictly prohibited in all indoor and outdoor areas to maintain a healthy environment for everyone.</p>
+		</li>
+		<li>
+			<strong>Are outside food and beverages allowed in classrooms?</strong>
+			<br>
+			<p>Yes, students are allowed to bring outside food and beverages into classrooms. Students are allowed to eat in classrooms during designated break times.
+			<br>However, it is encouraged to be mindful of cleanliness.</p>
+		</li>
+        <li>
+            <strong>What career services does APCBA offer?</strong>
+            <br>
+            <p>We provide various career services to help students with job placements and career development.</p>
+        </li>
+        <li>
+            <strong>Can I transfer credits from another institution?</strong>
+            <br>
+            <p>Yes, we have a credit transfer policy. Contact our admissions office for details on transferring credits from another institution.</p>
+        </li>
+		<li>
+			<strong>Can I park my bicycle or scooter on campus?</strong>
+			<br>
+			<p>Yes, there are designated areas for bicycle and scooter parking. Please use these spaces to ensure safety and order.</p>
+		</li>
+		<li>
+			<strong>Are there student clubs?</strong>
+			<br>
+			<p>While we currently have an active student organization, the development of additional student clubs is in the planning stage and on the backburner.
+			<br>We are working towards expanding the opportunities for student involvement. Stay tuned for updates!</p>
+		</li>
+		<li>
+			<strong>What technology resources are available for students?</strong>
+			<br>
+			<p>As of now, APCBA is in the process of developing technology resources for students. While we currently do not have dedicated computer labs or specific software provisions, we are actively working towards enhancing our technological infrastructure to better support students' academic needs.</p>
+		</li>
+        <li>
+            <strong>Is there on-campus housing available?</strong>
+            <br>
+            <p>No, we do not offer on-campus housing facilities for students.</p>
+        </li>
+		<li>
+			<strong>Can I transfer credits from another institution to APCBA?</strong>
+			<br>
+		<p>Absolutely. APCBA accepts credit transfers for eligible courses. If you are transferring from another institution, contact our Admissions Office for guidance
+		<br>on the credit transfer process. We strive to make the transition seamless for your academic journey at APCBA.</p>
+    </li>
+    </ol>
+</div>
+
+<script>
+  // opens the signup/login modal
+  function openSignUp() {
+    // alerts if use is already logged in
+    if (isLoggedIn()) {
+      alert('You are already logged in.');
+    } else {
+      window.location.href = 'signup.html';
+    }
+  }
+
+  // checks if user is logged in
+  function isLoggedIn() {
+    const user = localStorage.getItem('currentUser');
+    return user !== null;
+  }
+</script>
+
+	<script src="accountPopup.js"></script>
+	<script src="script.js"></script>
+    <script src="script2.js"></script>
+
+<div class="footer">
+	<h2>© 2023 APCBA. All rights reserved.</h2>
+</div>
+
+</body>
+</html>

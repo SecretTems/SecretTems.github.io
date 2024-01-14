@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Contacts/Info</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+		/* Applies "box-sizing: border-box" globally to include padding and border in element dimensions */
+		* {
+		  box-sizing: border-box;
+		}
+		
+		.account-popup {
+			display: none;
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: rgba(0, 0, 0, 0.5);
+			justify-content: center;
+			align-items: center;
+			z-index: 2;
+		}
+
+		.popup-content {
+			background-color: #fff;
+			padding: 20px;
+			border-radius: 8px;
+			border: 2px solid black;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+			position: relative;
+			z-index: 3;
+			width: 250px;
+			height: 160px;
+		}
+
+		.popup-content .close {
+			position: absolute;
+			top: 10px;
+			right: 10px;
+			font-size: 20px;
+			cursor: pointer;
+		}
+		
+		body {
+			font-family: Arial, Helvetica, sans-serif;
+			margin: 0;
+			background-color: #f5f0ec; /* Set the background color */
+		}
+
+		.header {
+			padding: 7px;
+			text-align: center;
+			background-image: url(images/ictback.jpg);
+			background-size: cover;
+			background-position: center;
+			text-shadow:
+			-1px -1px 2px #000,
+			1px -1px 2px #000,
+			-1px 1px 2px #000,
+			1px 1px 2px #000;
+			color: white;
+		}
+
+		.header h1 {
+			font-size: 32px;
+		}
+
+		/* Style the top navigation bar */
+		.navbar {
+			overflow: hidden;
+			background-color: #698696;
+		}
+
+		/* Style the navigation bar links */
+		.navbar a {
+			float: left;
+			display: block;
+			color: white;
+			text-align: center;
+			padding: 14px 20px;
+			text-decoration: none;
+		}
+
+		/* Right-aligned link */
+		.navbar a.right {
+			float: right;
+		}
+
+		/* Change color on hover */
+		.navbar a:hover {
+			background-color: #ddd;
+			color: black;
+		}
+
+		.about-content {
+			margin-left: 75px;
+			margin-right: 35px;
+			margin-top: 20px;
+		}
+		
+		.about-content h2 {
+			margin-top: 20px;
+		}
+		
+		.social-media-container {
+			float: right;
+			margin-right: 50px;
+			clear: right;
+			font-size: 25px;
+			
+		}
+
+		.social-media-heading {
+			float: right;
+			margin-right: 300px;
+		}
+		
+		.social-media-link {
+			display: inline-block;
+			margin-right: 15px;
+		}
+
+		iframe {
+			display: block;
+			margin: 25px; /* center horizontally */
+			margin-left: 75px;
+			text-align: center; 
+		}
+		
+		.facebook-iframe {
+			display: block;
+			margin: 5px;
+			text-align: center;
+		}
+		
+		.footer {
+			padding: 10px;
+			color: white;
+			text-align: center;
+			background: #698696;
+			bottom: 0;
+			width: 100%;
+		}
+</style>
+</head>
+<body>
+
+<div id="accountPopup" class="account-popup">
+  <div class="popup-content">
+    <span class="close" onclick="closeAccountPopup()">&times;</span>
+    <p id="accountUsername"></p>
+    <button onclick="logout()">Logout</button>
+  </div>
+</div>
+
+<div class="header">
+  <div><a href="cssclass.html"><img src="images/aaa.png" alt="asia logo" style="width:150px;height:150px;" class="left"></a></div>
+  <h1>Asia Pacific College of Business and Arts</h1>
+  <p><strong>Ad majorem Dei gloriam.</strong></p>
+  <p><strong>404600</strong></p>
+</div>
+
+<div class="navbar">
+  <a href="cssclass.html" target="_self">Home</a>
+  <a href="courses.html" target="_self">Courses</a>
+  <a href="Staff.html" target="_self">Staff</a>
+  <a href="activities.html" target="_self">Activities/News</a>
+  <a href="about.html" target="_self">Contacts/Info</a>
+  <a href="faq.html" target="_self">FAQs</a>
+  <a href="#" onclick="openSignUp()" style="float: right;">Sign Up/Login</a>
+  <a href="#" onclick="openAccountPopup()" style="float: right;">Account</a>
+  <a href="download/getgot.mp4" onclick="openFilesPage()" id="filesLinkContainer" style="display: none;">TOP SECRET FILES</a>
+</div>
+
+<body>
+
+<div class="social-media-container">
+	<p><strong class="social-media-text">Social Media Links:</strong>
+	<br><br>
+	<a href="https://www.facebook.com/asiapacificcollege" target="_blank" class="social-media-link">
+    <img src="images/facebook.png" alt="Facebook" style="height:50px; width:50px"></a>
+	<a href="https://www.facebook.com/asiapacificcollege" target="_blank" class="social-media-link">Facebook</a>
+	</p>
+	<iframe
+		class="facebook-iframe"
+        src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fasiapacificcollege&tabs=timeline&width=400&height=400&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=false&appId"
+        width="400"
+        height="400"
+        style="border:none;overflow:hidden"
+        scrolling="no"
+        frameborder="0"
+        allowfullscreen="true"
+        allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+		lazy= "true"
+    ></iframe>
+</div>
+
+	<h2 class="about-content">School Contacts:</h2>
+		<p class="about-content"><strong>Phone Numbers:</strong> 0943-034-6335</p>
+		<p class="about-content"><strong>Email Addresses:</strong> asiapacificcollege2325@gmail.com</p>
+		<p class="about-content"><strong>Office Hours:</strong> 7:00am-5:00pm</p>
+		<p class="about-content"><strong>School Address:</strong> Manzano St., Pob. Norte, Rizal, Philippines</p>
+		<p class="about-content"><strong>School ID:</strong> 404600</p>
+
+</div>
+	<h2 class="about-content" id="location-map">Location Map:</h2>
+
+	<iframe
+		src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3840.6999122598327!2d121.10443751760666!3d15.714070646565268!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3390cf41ca4127d9%3A0x7bea2eabfcd2842a!2sASIA%20PACIFIC%20COLLEGE%20OF%20BUSINESS%20AND%20ARTS!5e0!3m2!1sen!2sph!4v1702465822482!5m2!1sen!2sph"
+		width="400"
+		height="320"
+		style="border:0;"
+		allowfullscreen=""
+		loading="lazy"
+		referrerpolicy="no-referrer-when-downgrade">
+	</iframe>
+	
+<script>
+  // opens the signup/login modal
+  function openSignUp() {
+    // alerts if use is already logged in
+    if (isLoggedIn()) {
+      alert('You are already logged in.');
+    } else {
+      window.location.href = 'signup.html';
+    }
+  }
+
+  // checks if user is logged in
+  function isLoggedIn() {
+    const user = localStorage.getItem('currentUser');
+    return user !== null;
+  }
+</script>
+
+	<script src="accountPopup.js"></script>
+	<script src="script.js"></script>
+    <script src="script2.js"></script>
+
+<div class="footer">
+  <h2>© 2023 APCBA. All rights reserved.</h2>
+</div>
+
+</html>

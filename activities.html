@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Activities/News</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+	/* Applies "box-sizing: border-box" globally to include padding and border in element dimensions */
+    * {
+      box-sizing: border-box;
+    }
+	
+	.account-popup {
+		display: none;
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: rgba(0, 0, 0, 0.5);
+		justify-content: center;
+		align-items: center;
+		z-index: 2;
+	}
+
+	.popup-content {
+		background-color: #fff;
+		padding: 20px;
+		border-radius: 8px;
+		border: 2px solid black;
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+		position: relative;
+		z-index: 3;
+		width: 250px;
+		height: 160px;
+	}
+
+	.popup-content .close {
+		position: absolute;
+		top: 10px;
+		right: 10px;
+		font-size: 20px;
+		cursor: pointer;
+	}
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      margin: 0;
+	  background-color: #f5f0ec;
+    }
+
+    .header {
+      padding: 7px;
+      text-align: center;
+      background-image: url(images/ictback.jpg);
+      background-size: cover;
+      background-position: center;
+      text-shadow: -1px -1px 2px #000, 1px -1px 2px #000, -1px 1px 2px #000, 1px 1px 2px #000;
+      color: white;
+    }
+
+    .navbar {
+      overflow: hidden;
+      background-color: #698696;
+    }
+
+    .navbar a {
+      float: left;
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 14px 20px;
+      text-decoration: none;
+    }
+
+    .navbar a.right {
+      float: right;
+    }
+
+    .navbar a:hover {
+      background-color: #ddd;
+      color: black;
+    }
+
+    .head {
+      font-size: 20px;
+      margin-left: 30px;
+	  margin-right: 30px;
+	  margin-top: 30px;
+    }
+	
+	h2 {
+	  margin-top: 5px;
+	  margin-bottom: 5px;
+	}
+
+	.activities-container {
+		display: flex;
+		align-items: center;
+		flex-wrap: wrap;
+	}
+
+	.activities-text {
+		margin-left: 20px;
+		margin-right: 10px;
+		margin-bottom: 20px;
+		max-width: 900px;
+	}
+
+	.activities-text p {
+		margin-top: 0;
+		font-size: 16px;
+	}
+	
+	.activities-image {
+      flex-shrink: 0; /* prevents image shrinking */
+    }
+	
+	.gallery-modal {
+		display: none;
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: rgba(0, 0, 0, 0.7);
+		justify-content: center;
+		align-items: center;
+		z-index: 2; /* Ensure the modal is above other elements */
+    }
+
+    .gallery-modal img {
+     	max-width: 90%;
+	    max-height: 90%;
+    }
+	
+	.gallery-modal .close {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      color: white;
+      font-size: 60px;
+      cursor: pointer;
+    }
+	
+	.gallery-modal .nav-arrow {
+      position: absolute;
+      top: 50%;
+      font-size: 70px;
+      color: white;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .gallery-modal .prev-arrow {
+      left: 15px;
+    }
+
+    .gallery-modal .next-arrow {
+      right: 15px;
+    }
+	
+	.footer {
+      padding: 10px;
+      color: white;
+      text-align: center;
+      background: #698696;
+      bottom: 0;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+<div id="accountPopup" class="account-popup">
+  <div class="popup-content">
+    <span class="close" onclick="closeAccountPopup()">&times;</span>
+    <p id="accountUsername"></p>
+    <button onclick="logout()">Logout</button>
+  </div>
+</div>
+
+  <div class="header">
+    <div><a href="cssclass.html"><img src="images/aaa.png" alt="asia logo" style="width:150px;height:150px;" class="left"></a></div>
+    <h1>Asia Pacific College of Business and Arts</h1>
+    <p><strong>Ad majorem Dei gloriam.</strong></p>
+	<p><strong>404600</strong></p>
+  </div>
+
+  <div class="navbar">
+    <a href="cssclass.html" target="_self">Home</a>
+    <a href="courses.html" target="_self">Courses</a>
+    <a href="Staff.html" target="_self">Staff</a>
+    <a href="activities.html" target="_self">Activities/News</a>
+    <a href="about.html" target="_self">Contacts/Info</a>
+	<a href="faq.html" target="_self">FAQs</a>
+	<a href="#" onclick="openSignUp()" style="float: right;">Sign Up/Login</a>
+	<a href="#" onclick="openAccountPopup()" style="float: right;">Account</a>
+	<a href="download/getgot.mp4" onclick="openFilesPage()" id="filesLinkContainer" style="display: none;">TOP SECRET FILES</a>
+  </div>
+
+<div class="gallery-modal" id="galleryModal">
+    <span class="close" onclick="closeGalleryModal()">&times;</span>
+    <img id="galleryImage" alt="Gallery Image">
+    <span class="nav-arrow prev-arrow" onclick="navigateGallery(-1)">&#9665;</span>
+    <span class="nav-arrow next-arrow" onclick="navigateGallery(1)">&#9655;</span>
+</div>
+
+<div class="head">
+    <div class="activities-container">
+
+		<div class="activities-image">
+		<img src="images/intram/1.jpg"
+		alt="intrams"
+		style="height:250px;width:300px; cursor: pointer;"
+		onclick="openGalleryModal('images/intram/1.jpg',
+		['images/intram/2.jpg',
+		'images/intram/3.jpg',
+		'images/intram/4.jpg',
+		'images/intram/5.jpg',
+		'images/intram/6.jpg',
+		'images/intram/7.jpg',
+		'images/intram/8.jpg',
+		'images/intram/9.jpg',
+		'images/intram/10.jpg',
+		'images/intram/11.jpg',
+		'images/intram/12.jpg',
+		'images/intram/13.jpg',
+		'images/intram/14.jpg',
+		'images/intram/15.jpg',
+		'images/intram/16.jpg',
+		'images/intram/17.jpg',
+		'images/intram/18.jpg',
+		'images/intram/19.jpg',
+		'images/intram/20.jpg',
+		'images/intram/22.jpg',
+		'images/intram/23.jpg',
+		'images/intram/24.jpg',
+		'images/intram/25.jpg',
+		'images/intram/26.jpg',
+		'images/intram/27.jpg',
+		'images/intram/28.jpg',
+		'images/intram/29.jpg',
+		'images/intram/30.jpg',
+		'images/intram/31.jpg',
+		'images/intram/32.jpg',
+		'images/intram/33.jpg',
+		'images/intram/34.jpg',
+		'images/intram/1.jpg'])">
+		</div>
+		<div class="activities-text">
+			<h2><strong>Intramural ‘23 Kicks Off</strong></h2>
+			<p><strong>By: Marjoreen O. Oriña</strong></p>
+			<p>Loud cheers from the Asianites welcome this
+				years Intramural in it’s opening ceremony last October 20,
+				2023. With each team having their own representatives,
+				banners were entered and raised inside the Asia Pacific
+				College of Business and Arts campus. It was then
+				followed by the Lighting of Torch and Oath of
+				Sportsmanship led by APCBA Intramural Most Valuable
+				Player 2022, Mr. Joshua B. Moran and the participating
+				players of the game took their pledge. Mr. Joseph G.
+				Maniaol, the Chairman of the APCBA Intramural
+				officially declared the opening of this years Intramural
+				event which was then followed by the Mr. And Ms.
+				Intramural competition. After the candidates show off
+				what they got, the judges had their rundown and
+				announced the winners. It’s DHTT Representative,
+				<br><br>
+				Mr. John Mark Salen who was crowned as Mr.
+				Intramural 2023 and the newly crowned Ms. Intramural
+				2023 was non other than Ms. Athena Marcos from ABM
+				Wizard and ICT Tycoons.
+				The most anticipated event during the Intramural;
+				the Cheer Dance competition. Each teams cheer dance
+				representatives had shown their impressive moves and
+				stirring routines. In the end, the hard work, talent,
+				creativity and dedication of the Humanista people
+				surfaced as they were crowned as the champions of the
+				cheer dance competition in Senior High School division.
+				Meanwhile, it is the BTVTed Educators who
+				dominate the dance floor as they bagged the
+				championship title for cheer dance competition in College division. 
+				<br><br>
+				As program is proclaiming its end, the Masters of
+				the Ceremony immediately announced the playing
+				venues and schedules of various sport events. After three
+				days of intense sports competition, the champion in each
+				category emerged victorious. These champions
+				demonstrated exceptional skill, determination and
+				athleticism in their respective sports. They outperformed
+				their competitors and achieved the highest level of
+				success in their events.
+				In Running event, General Academic Strand
+				claimed the title both in men’s and women’s 100 meter
+				race for Senior High School. Meanwhile, for 100 meter
+				race men’s category under College Department, the
+				representative from DHTT Section-B, Mr. Janricky
+				Bartolome claimed the number one spot. For 400 meter
+				race, General Academic Strand, still, champs in the track
+				for Senior High School and for College Department, the
+				hailed 400 meter dash boy was non other than Mr. Edzel
+				Benemerito.
+			</p>
+		</div>
+	  
+		<div class="activities-text">
+			<h2><strong>MENTAL HEALTH AWARENESS</strong></h2>
+			<p><strong>By: Rhelyn Espiloy and Geriz Francisco</strong></p>
+			<p>Problems are inevitable part of our life, as the problems
+				file us up. We often felt and asked ourselves if "are we
+				worthy?" "Why my life does turns out like this?" or “do I
+				deserve to be treated like this?”It looks like a simple
+				question yet it brings a great impact in our whole being
+				and wrecking our will to continue the path of life
+				Dr. Henry Cocoy DR. Nacpil, Rpm, RGC, PhD share his
+				knowledge and expertise on the 10th day of November
+				year 2023 held at the main campus of Asia Pacific
+				College of Business and Arts. He discussed a lot of
+				techniques on how to deal with the problems we've been
+				encountered and will be encountering in our daily lives,
+				highlighting the three most important things in dealing
+				the problem we have. First, through the connection of
+				our Mighty God. He explained a lot of things regarding
+				to the positive feedback's we can achieve by having a
+				close connection on him. Second, observe. Observing
+				the people around you, can also be a great help. By doing
+				so, one might understand the reason why does that person
+				do that kind of a thing. Third, Timing. Finding the right
+				timing can make the atmosphere more comfortable for
+				the individual when opening themselves towards their
+				family, friends, or to anyone whom they made an
+				argument. Furthermore, he also encouraged the students
+				to open up when encountering problems in life. Helping
+				us to realize that we do not live in a deserted island
+				where we only live by our own, he shows us by using his
+				words that we can always seek and ask for help to others.
+				Caging yourself with that heavy feeling will never be a
+				<br><br>
+				Dr. Henry Cocoy deliberately give time for the students of
+				APCBA to asked him for a guidance regarding about the
+				things that they we’re wary about. Either, it is a problem
+				concerning to their families or even to their emotions that
+				feels being invalidated when opening their self to others,
+				and how will an individual will know whether someone is
+				already have an anxiety or depression. When they know
+				their self well that they are fine enough? Those kinds of
+				question are what the students frequently asked while
+				having Dr. Cocoy as their mental health advisor. With his
+				knowledge and experiences he was able to give a
+				satisfactory answer to the questions thrown upon him. He
+				also been able to give some tips and techniques to the
+				students of APCBA in dealing to that kind of situation
+				The discussion last for at least 3 hours, yet
+				brings a great realization to the students who are
+				experiencing the storm of life and made them realize that
+				after the storm they are facing right now, it will certainly
+				have a better tomorrow, a better tomorrow wherein
+				rainbows will set upon the clouds, giving the radiance and
+				colors to their colorless life.
+				The lessons, knowledge, and wisdom that
+				bestowed upon us APCBA students will forever be remain
+				in our hearts. This seminar became the light in the dark
+				path of our life.
+			</p>
+		</div>
+		<div class="activities-image">
+		<img src="images/dude.png"
+		alt="some old guy"
+		style="height:200px;width:320px; cursor: pointer;"
+		onclick="openGalleryModal('images/dude.png',
+		['images/dude.png'])">
+		</div>
+		
+		<div class="activities-image">
+		<img src="images/meeting/1.jpg"
+		alt="meeting"
+		style="height:250px;width:320px; cursor: pointer;"
+		onclick="openGalleryModal('images/meeting/1.jpg', ['images/meeting/1.jpg',
+		'images/meeting/2.jpg',
+		'images/meeting/3.jpg',
+		'images/meeting/4.jpg',
+		'images/meeting/5.jpg',
+		'images/meeting/6.jpg',
+		'images/meeting/7.jpg',
+		'images/meeting/8.jpg',
+		'images/meeting/9.jpg',
+		'images/meeting/10.jpg',
+		'images/meeting/11.jpg',
+		'images/meeting/12.jpg',
+		'images/meeting/13.jpg',
+		'images/meeting/14.jpg',
+		'images/meeting/15.jpg',
+		'images/meeting/16.jpg',
+		'images/meeting/17.jpg',
+		'images/meeting/18.jpg',
+		'images/meeting/19.jpg',
+		'images/meeting/20.jpg',
+		'images/meeting/21.jpg',
+		'images/meeting/22.jpg',
+		'images/meeting/23.jpg',
+		'images/meeting/24.jpg', 
+		'images/meeting/1.jpg'])">
+		</div>
+		<div class="activities-text">
+			<h2><strong>MITING DE AVANCE ,ELECTION AND PROCLAMATION OF NEW SSG OFFICERS AT ASIA PACIFIC COLLEGE OF BUSINESS AND ARTS (2023-2024)</strong></h2>
+			<p><strong>By: Perfecto Sumawang and Janna Arabela Mauro</strong></p>
+			<p>
+				Miting de Avance In leadership, staying connected to God is the key.
+				If we lose our connection, we lose our foundation.
+				Thecall for leadership at Asia Pacific College of Businessand Arts,
+				with 60 aspiring students aiming to be part
+				of the Supreme Student Government (SSG) in the school year 2023-2024,
+				started on the 11th day of the month of October 2023,
+				around 8 to 12 noon.The miting de avance happened
+				at the Asia Pacific College of Business and Arts gymnasium.
+				Miting de avance started with introducing the aspiring
+				60 students of the three partylists: partidoabante, smile, and unity.
+				In this moment, they emphasized their platforms, projects, and
+			<br><br>
+				advocacy they want to implement inside the
+				school. The presidents, together with their vice
+				president Kirby Abasta and his vice president John
+				Renz Cuadrante of Smile Partylist, Jamaica Miguel with
+				Eden Rose Concepcion from Partido Abante, and
+				Luisito Santos with Marjoreen Oriña of Unity Partylist,
+				exchanging ideas and thoughts after the introduction of
+				partylist about certain topics based on their platforms
+				and advocacy. The panels and students posed a lot of
+				questions that the president and vice president of the
+				party list should answer. Some issues and concerns were
+				revealed in the meeting that need to be addressed, like
+				gender equality, mental health, programmes, etc.
+				The programme ended with the support of the
+				Asia Pacific College of Business and Arts teaching
+				staff, panels, and the participation of the three party
+				lists. This programme emphasized the aspiring students
+				wanting to be part of the Supreme Student Government
+				and would be able to serve with pride, led with
+				confidence, and inspired to impact lives.
+			</p>
+		</div>		
+		
+		<div class="activities-text">
+			<h2><strong>S.Y. 2023-2024 FIRST GENERAL PTA MEETING</strong></h2>
+			<p><strong>By: Ashley Agumbay</strong></p>
+			<p>
+				Asia Pacific College of Business and Arts
+				conducted the First General PTA Meeting at the day of
+				September 14, 2023 , 8:00 am for Grade 11 parents and
+				teachers and on the next day,( September 15, 2023 ) at
+				10:00 am is for the Grade 12 parents and teachers .
+				The First General PTA Meeting occurred in
+				North Annex Gym , led by the teachers of senior high
+				students together with the school admin at the second day.
+				This meeting is divided into five agendas: create a
+				welcoming environment for students and parents,
+				Building a sense of community among the students,
+				faculty, and staff, Providing information on the rules,
+				regulations, programs, facilities and services of the school,
+				Facilitating transition from SHS to College and help them
+				better understand the learning modalities in the new normal.
+				The opening prayer of the conducted PTA
+				Meeting was led by Mrs.Marimark Vallejos. LPT.and
+				hosted by Ms. Jaeme Anne Rupisan. LPT.for the Grade 11
+				and Mr.John Bill Tamayo. LPT.for Grade 12 . The
+				discussion was led by Mrs. Hazel Joyce Cruz. LPT.for
+				Grade 11 parents and Ma’am Emmarie Dulay for the
+				Grade 12 parents.
+				<br><br>
+				<strong>GOALS</strong>
+				<br><br>
+				The aspiration of the meeting is to create a welcoming
+				environment for students and parents and encourage in
+				them a positive attitude towards Senior High School and
+				College. Here they discussed about the school program
+				offerings and the Diploma Course.
+				In Building a sense of community among the students,
+				faculty, and staff by providing opportunities for
+				introduction, and interaction; belongs with Students
+				conduct, Extra and co-curricular activities, Calendar of
+				activities and important date and also the School
+				communication process, where they discussed about the
+				communication of students with faculty and
+				staffs through the activities.
+				Providing information on the rules, regulations,
+				programs, facilities and services of the school and how
+				these can support their academic and personal goals would
+				be the third agenda of the meeting. They discussed the
+				administrative staff and members of the Board of Regents.
+				The school registrar, cashier, CEO, human resources
+				officer, and other staff all played important roles in
+				ensuring that the school runs smoothly. They work
+				together to make things happen. The CEO had a clear
+				vision for the future of the school and the human
+				resources officer was a great listener who provided
+				valuable insights on employee management. The cashier
+				is very friendly and efficient in handling the financial
+				operations. The registrar makes sure that the academic
+				records are maintained properly. It’s great to see how
+				these individuals work so effectively as a team.
+			</p>
+		</div>
+		<div class="activities-image">
+		<img src="images/pta/1.png"
+		alt="gallery"
+		style="height:250px;width:320px; cursor: pointer;"
+		onclick="openGalleryModal('images/pta/1.png',
+		['images/pta/1.png', ])">
+		</div>
+		
+		<div class="activities-image">
+		<img src="images/unif/1.png"
+		alt="gallery"
+		style="height:230px;width:320px; cursor: pointer;"
+		onclick="openGalleryModal('images/unif/1.png',
+		['images/unif/1.png', ])">
+		</div>
+		<div class="activities-text">
+			<h2><strong>Expression or Uniformity?</strong></h2>
+			<p><strong>By: Sheena Nicole C. Mendoza</strong></p>
+			<p>School dress code is one of the most
+				controversial topics that is often brought up
+				in a debate or discussion. The conflict is
+				always between the expression and
+				uniformity of the students. But first, what
+				is the dress code? The dress code is a
+				common policy in school that students
+				must obey.
+				This means students are required to wear
+				uniforms unless it is civilian clothes day or
+				P.E. day.
+				Having a proper dress code in
+				school gives equality and fairness to each
+				student. It can help to lessen the worry and
+				peer pressure of students before going to
+				school. For example, some
+				students say these things:
+				“I don’t know what to wear anymore.”
+				“I think my clothes are not suitable in school.”
+				“I am scared people will judge me if they saw me
+				wearing something like this.”
+				Now, if all students wear the same attire, they won't have
+				to worry anymore because everyone will look similar.
+				<br><br>
+				Furthermore, LGBTQ+ in Asia Pacific College
+				of Business and Arts has been approved to wear
+				uniforms based on the gender they are acknowledging.
+				They are free to cross the suitable clothes for gender as
+				long as they are not violating the dress codes.
+				According to Pasoquin, J. (2020), “Students
+				are generally identified about their level of education and
+				affiliation from their uniform or a formal dress for ages.”
+				Having a dress code can have such significance for a
+				student. A student can be easily recognized by which
+				school they are at. In case of an emergency, people can
+				basically identify a student by the uniform they are
+				wearing. In which can help provide necessary
+				information. Dress codes also help to identify which
+				students are classified depending on the dress code that
+				the school administrator sets. For example, the level of
+				education they are in have a different color of uniform.
+			</p>
+		</div>
+		
+		<div class="activities-text">
+			<h2><strong>WORLD TEACHER’S DAY</strong></h2>
+			<p><strong>By:Sheena Nicole Mendoza</strong></p>
+			<p>
+				World Teacher’s Day is celebrated annually
+				on the 5th of October. This
+				international event is a tribute to all
+				educators for their unwavering
+				hard work and perseverance in teaching. Asia Pacific College
+				of Business and Arts teachers should not only honor the ways
+				in which they revolutionizing the field of education, but also
+				consider the assistance that they require to properly utilize the
+				students’ determination and dreams in life.
+				At Asia Pacific College of Business and Arts
+				(APCBA), the celebration took place on October 6, 2023, for a
+				specific reason. On Friday morning, students expressed
+				appreciation and gratitude to every APCBA teacher by
+				surprising them with flowers, handmade gifts, crochets, letters,
+				cakes, chocolates, certificates of appreciation, and various
+				gifts. Based on the teachers' reactions, they seemed touched by
+				the students' efforts and expressed their thanks.
+				<br><br>
+				In the afternoon, all the teachers gathered at
+				Dentofarm Resort, especially the APCBA teachers. This was
+				to celebrate Teacher’s Day with our beloved mayor, Mayor
+				Trina Andres, who held the event. “The celebration was truly
+				enjoyable, featuring games. Mayor Trina also gave us a token
+				of appreciation for every teacher. I had a delightful time at
+				Dentofarm,” said Ma'am Marimark.
+				On Teacher’s Day or even a normal day, let us
+				always reflect on the invaluable contributions of educators in
+				shaping minds and inspiring futures. As we express gratitude
+				for their tireless dedication, let's remember that the impact of a
+				teacher extends far beyond the classroom, leaving an enduring
+				mark on generations to come.
+			</p>
+		</div>
+		<div class="activities-image">
+		<img src="images/teachersday/1.jpg"
+		alt="day"
+		style="height:230px;width:320px; cursor: pointer;"
+		onclick="openGalleryModal('images/teachersday/1.jpg',
+		['images/teachersday/2.jpg',
+		'images/teachersday/3.jpg',
+		'images/teachersday/4.jpg',
+		'images/teachersday/5.jpg',
+		'images/teachersday/6.jpg',
+		'images/teachersday/7.jpg',
+		'images/teachersday/8.jpg',
+		'images/teachersday/9.jpg',
+		'images/teachersday/10.jpg',
+		'images/teachersday/1.jpg'])">
+		</div>
+		
+		<div class="activities-image">
+		<img src="images/maam/1.jpg"
+		alt="maam"
+		style="height:200px;width:300px; cursor: pointer;"
+		onclick="openGalleryModal('images/maam/1.jpg',
+		['images/maam/2.jpg',
+		'images/maam/3.jpg',
+		'images/maam/4.jpg',
+		'images/maam/5.jpg',
+		'images/maam/6.jpg',
+		'images/maam/7.jpg',
+		'images/maam/8.jpg',
+		'images/maam/9.jpg',
+		'images/maam/10.jpg',
+		'images/maam/ye.gif',
+		'images/maam/12.jpg',
+		'images/maam/ye.gif',
+		'images/maam/14.jpg',
+		'images/maam/15.jpg',
+		'images/maam/16.jpg',
+		'images/maam/17.jpg',
+		'images/maam/ye.gif',
+		'images/maam/19.jpg',
+		'images/maam/20.png'])">
+		</div>
+		<div class="activities-text">
+			<h2><strong>Remembering Ma’am Hannah</strong></h2>
+			<p><strong>By: Rhelyn Rashmin V. Espiloy and Gheriez F. Bajet</strong></p>
+			<p>
+				Do you still remember the happy-go-lucky teacher?
+				Just like a river that flows down to the alley,
+				the memories and contribution of Asia Pacific College
+				of Business and Arts very own Ma’am Hannah G.
+				Sotes flashes like a thunderstorm raging in the ears
+				and memories of the sweet yesterday. Ma’am Hannah,
+				a kind, loving, considerate and awesome teacher, coworker, friend, sister, and daughter still lingers in the
+				hearts and minds of everyone she encountered during
+				her short but blissful, well-lived life.
+				<br><br>
+				To Her Former Students, the Asianites
+				In almost a year that had passed, the smiling
+				face and warm aura that Ma’am Sotes possessed gave
+				joy and hope to her beloved Asianites she taught.
+				When asked, her students referred to her as someone
+				who you can rely on, the one who you can open up to,
+				and the one who would stand by your side the moment
+				you feel that the world is against you. She will
+				definitely be there by your side, willing to extend her
+				arms in order to help you in overcoming and defeating
+				those strange thoughts and feelings you have seldom.
+				Certainly, encouraging and helping the
+				students became her forte without her knowing it.
+				"Siya yung tipo ng titser na ip-push ka n'ya na
+				ipakita yung talent na meron ka, talent na akala
+				mo wala ka, pero meron pala at hindi mo lang ‘yon
+				nalalaman," stated by her former college student in APCBA.
+				<br><br>
+				With her words and stares that carry no judgement
+				but simple care and love that once brimmed into those
+				beautiful eyes of hers, lifted and motivated the students to
+				believe in themselves, because each of them is blessed with
+				gifts that they need to discover, explore, and develop.
+				In addition, the moment the students started
+				describing what kind of a person Ma’am Hannah was, one
+				could see the sparks in their eyes; the way they lit up
+				together with the joy it reflected while they were talking
+				about her. “Kapag kasama mo siya, ang gaan sa feeling. Ang
+				gaan kase alam mo na hindi ka niya idya-judge kundi
+				palalakasin niya pa yung loob mo,”.
+			</p>
+		</div>
+		
+		<div class="activities-text">
+			<h2><strong>The Unexpected Passing of a Basketball Rising Star</strong></h2>
+			<p><strong>By: Janna Arabela S. Mauro</strong></p>
+			<p>"A beautiful heart with
+				a beautiful soul" – this is how Joshua B. Moran described John
+				Lloyd Palma, his classmate and best friend. “Bentong”, as what
+				many called him, was the kind of person, who was always happy
+				and full of humor. According to Moran, with just few jokes from
+				him, one can laugh uncontrollably. He was cheerful, fond
+				of laughing and joking with his teachers and classmates,
+				and most importantly – kind.
+				Aside from these, John Lloyd was a good
+				cousin, a polite nephew, but above all, a loving and caring
+				only child to Mrs. Julieta Palma, a single parent and an
+				overseas Filipino worker.
+				<br><br>
+				Palma was a resident of Poblacion Centro,
+				Rizal, Nueva Ecija and a 21-year-old 2nd Year Diploma in
+				Hospitality and Tourism Technology regular student at
+				Asia Pacific College of Business and Arts.
+				As a student, John Lloyd was a comic one.
+				Joshua shared that even when their teacher was in class or
+				discussing in front, Palma was secretly eating on his seat.
+				In the field of basketball, as a usual Most
+				Valuable Player (MVP) awardee, Bentong was a
+				prominent basketball figure not only to Rizaleňos but to
+				other basketball enthusiasts and fans from other towns,
+				for he was one of the basketball players who represented
+				the municipality of Rizal in intertown basketball cups
+				such as Mayor Kokoy Salvador Basketball League.
+				It was where he acquired a lot friends with
+				whom he can confide his problems in life, for basketball
+				was where most of his life revolved,
+				but it was also the reason his life that was full of
+				dreams and potentials was cut short.
+				<br><br>
+				On November 12, 2023 at around 6:00-7:00PM,
+				Bentong was riding his motorcycle to Cabucbucan to play
+				basketball. Like the usual, he was with his friends and teammates.
+				However, while they were traversing the dark
+				portion of Calaocan-Cabucbucan road along hectares after
+				hectares of rice fields, an overspeeding motorcycle crashed
+				into John Lloyd Palma. The drunk driver was dead on the
+				spot, because of the impact. Bentong, on the other hand, was
+				hit gravely hit on his head but still conscious and gasping for his dear life.
+				The Municipal Disaster Risk Reduction and
+				Management Office (MDRRMO) personnel of Rizal
+				responded immediately on the situation and rushed Palma to
+				the nearest hospital in Cabanatuan City. Unfortunately, John
+				Lloyd did not make it. They lost him on the way in
+				Pinagpanaan, Talavera. 
+			</p>
+		</div>
+		<div class="activities-image">
+			<img src="images/idk/1.jpg"
+			alt="idk"
+			style="height:200px;width:320px; cursor: pointer;"
+			onclick="openGalleryModal('images/idk/1.jpg',
+			['images/idk/1.jpg'])">
+		</div>
+		
+		<div class="activities-image">
+			<img src="images/opp/1.png"
+			alt="gallery"
+			style="height:370px;width:320px; cursor: pointer;"
+			onclick="openGalleryModal('images/opp/1.png',
+			['images/opp/1.png', ])">
+		</div>
+		<div class="activities-text">
+			<h2><strong>Opportunity for TESDA graduates</strong></h2>
+			<p><strong>By: Rolly Limos</strong></p>
+			<p>Nitong taong 2023 ay may halos 310 na libreng
+				skills training na isinagawa sa APCBA main campus at
+				APCBA Bongabon Campus. Ang mga scholarship
+				program na naibahagi ay mula sa Universal Access to
+				Quality Tertiary Education Act na may kabuoang 225,
+				Training for Work Scholarship Program na may bilang na
+				35 at Special Training for Employment Program na may halos 50 scholar.
+				Kung ating paghahambingin ang bilang nang
+				naipamahaging TESDA program sa nagdaang taon ay
+				masasabi na mas marami ang sa taong ito dahil kung
+				susumahin ay nadagdagan ng 95 na mga scholar mula sa
+				dating 215 TESDA scholar. Sa pagdami ng benepisyo sa
+				scholarship na ito ay mas maraming mamamayan ang
+				maaring magkaroon ng trabaho, at ayon nga sa datos ng
+				TESDA - Central Luzon ay 8 sa 10 TESDA graduate ay
+				agad na natatanggap sa trabaho hindi lang dito sa Pilipinas
+				kundi pati sa ibang bansa kaya marami sa kababayang
+				Rizaleno at kalapit bayan nito ay hindi pinapalagpas ang
+				pagkakataong makakuha ng programang ito.
+				<br><br>
+				Samantala, marami parin ang hirap makahanap
+				ng trabaho kahit sila ay graduate na sa TESDA ngunit kung
+				paghuhusayan at magtityaga ay tiyak na makakahanap ng
+				maayos na trabaho, sabi nga ng marami “nasa Diyos ang
+				awa, nasa tao ang gawa”. Ayon nga sa TESDA bagamat
+				hindi ito direktang nagbibigay ng employment
+				opportunities sa mga graduates, may mga programa naman
+				itong inilulunsad na naglalayong makatulong sa mga
+				graduates nito na nangangailangan ng trabaho o livelihood,
+				tulad na lamang ng world cafe of opportunities at ang 911
+				TESDA. Ang APCBA ay dinadagsa parin ng mga
+				mamamayan upang makapag-aral at mapaunlad ang
+				kakayan, isa rin sa dahilan ng pagdagsa ay ang malapit
+				sakanila ang paaralan na hindi na kailangang mag-aral ng
+				TESDA sa malayong bayan.
+			</p>
+		</div>
+		
+		<div class="activities-text">
+			<h2><strong>APCBA Celebrated the National Language Month</strong></h2>
+			<p><strong>By: Jhanise Gamboa</strong></p>
+			<p>"Filipino at Mga Katitibong Wika: Wika ng
+				kapayapaan, seguridad at inklusibong pagpapatupad ng
+				katarungang panlipunan", the celebration's main concept
+				during the National Language Month.
+				 On September 4, 2023, during National
+				Language Month, students competed in a number of
+				categories. There were a total of seven categories: Spoken
+				Word Poetry, Photography, Quiz Bee, Poster Making
+				(Traditional and Digital), Food Festival (Pista ng
+				Pagkain), Song Competition (Group and Solo/Duet), and
+				the competition between Lakan and Lakambini of all
+				strands and departments. The said event was originally
+				scheduled to include Filipino Games (Larong Pinoy), but
+				due to unforeseen circumstances, it was taken out.
+				 Jorge Castro Jr. of 12 ABM was crowned as
+				the Lakan of Asia Pacific College of Business and Arts
+				together with the named Lakambini, Jamaica Miguel from
+				DHTT Regular 2nd Year. Lakan and Lakambini was the
+				newest category added because of administrators
+				persuasion.
+				<br><br>
+				The award was an additional feather in the cap
+				for Princess Mae Langcay, an student from DHTT Scholar
+				in Spoken Word Poetry. Third placer was a Grade 12
+				HUMSS student, and the second placer from the second
+				year of BTVTED together with her won an achievement
+				in the said contest.
+				The group and the solo or duet were the two
+				subcategories of the Song Competition. In the Kundiman
+				Song Category, DHTT Scholar Waves 2 and 3 won first
+				place. The winner of the solo or duet category is Ar-jay
+				Lucero, a competitor from DHTT Scholar Wave 1.
+				Aminah Antonio, a DHTT Scholar Wave 4
+				representative, won the poster making competition by
+				placing first in the traditional category. A student in Grade
+				11 HUMSS named Daina Torres won first place in the
+				Digital Poster Making Competition. Marileth Matutino of
+				BTVTED 2nd Year emerged triumphant in the Quiz Bee
+				with 32 points, her gap with the second place, a Grade 12-
+				ICT was 2 points, and her advantage with the third place
+				finisher from Grade 12 STEM was 4 points.
+				<br><br>
+				The Food Festival, also called Pista ng Pagkain, was one
+				of the contests to enter in addition to the previously
+				mentioned activities. In the Senior High School
+				Department, the Grade 11 GAS emerged victorious over
+				their peers representative and STEM was able to secure
+				first place in Grade 12. Last but not least, the BTVTED
+				second year won the Food Festival College Category,
+				proving that they had achieved success.
+				 The Photography Competition comes last. The
+				winner was the competitor from BTVTED's second year,
+				and the runner-up was from ICT 12th Grade.
+				 Plenty of thanks to Sir Marlon D. Lazaro, a
+				Filipino Department Committee, as well as the other
+				instructors and administrators. The students relished the
+				celebration of National Language Month as the event went
+				smoothly from beginning to end.
+			</p>
+		</div>
+		<div class="activities-image">
+			<img src="images/wika/1.jpg"
+			alt="idk"
+			style="height:250px;width:320px; cursor: pointer;"
+			onclick="openGalleryModal('images/wika/1.jpg',
+			['images/wika/2.jpg',
+			'images/wika/3.jpg',
+			'images/wika/4.jpg',
+			'images/wika/5.jpg',
+			'images/wika/6.jpg',
+			'images/wika/7.jpg',
+			'images/wika/8.jpg',
+			'images/wika/9.jpg',
+			'images/wika/10.jpg',
+			'images/wika/11.jpg',
+			'images/wika/12.jpg',
+			'images/wika/13.jpg',
+			'images/wika/14.jpg',
+			'images/wika/15.jpg',
+			'images/wika/16.jpg',
+			'images/wika/17.jpg',
+			'images/wika/18.jpg',
+			'images/wika/19.jpg',
+			'images/wika/20.jpg',
+			'images/wika/1.jpg'])">
+		</div>
+		
+		<div class="activities-image">
+			<img src="images/rice/1.jpg"
+			alt="something about rice"
+			style="height:200px;width:320px; cursor: pointer;"
+			onclick="openGalleryModal('images/rice/1.jpg',
+			['images/rice/1.jpg',
+			'images/rice/2.png',
+			'images/rice/3.png'])">
+		</div>
+		<div class="activities-text">
+			<h2><strong>Rice Prices Ceiling</strong></h2>
+			<p><strong>By: Andrea D. Garote</strong></p>
+			<p>
+				I am the student who has been given a chance to speak of what I
+				feel. We are an adults, open our eyes though ears.
+				Rice price ceiling is usually
+				authorized by the government to make affordable for
+				the consumers. We should not only see the one side of
+				this issue, because producers will be more affected
+				in this price ceiling.
+				Yes, price ceiling will limit cost of
+				consumers and it keeps things affordable but cannot we
+				see the cons of this action. They may have not produce
+				as much, causing more shortages. Some are able to
+				force out of business if they cannot realize a reasonable
+				benefit on their goods.
+				Farmers, too, will be hurt by the price
+				ceilings. Unable to have their rice sold in markets
+				because of rising costs ( farm-gate is already at or near
+				P20 per kilo), they themselves may choose to stop
+				planting rice. Alternatively, they may cut corners or
+				produce cheap but bad-quality rice.
+				August 31, 2023, amid skyrocketing rice
+				prices, President Ferdinand Marcos Jr.
+				<br><br>
+				issued an executive order imposing mandatory price
+				ceilings on rice. Started on September 5, retailers
+				must sell regular-milled rice at no more than P41
+				per kilo and well-milled rice at no more than P45 per kilo.
+				Doing otherwise will be illegal. In fact, violators face
+				hefty penalties: they can be imprisoned for “less than a year”
+				and be fined anywhere from P5,000 to P1 million.
+				Seeing the unsustainability of this, many retailers may eventually
+				choose to exit the market and not sell any rice at
+				all. In fact, some retailers are threatening to do so as early as now.
+				Why is it price ceiling have to be apply only on the rice (crops)
+				area? How about limit the cost for the agricultural
+				products such as insecticides and fertilizers because this is one
+				of the reason why farmers suffered from financial losses.
+				The money was spent on the fertilizer did not return because of
+				the low price of rice. And I think limit the cost of
+				agricultural products will be the answer in this problem.
+			</p>
+		</div>
+    </div>
+</div>
+
+  <div class="footer">
+    <h2>© 2023 APCBA. All rights reserved.</h2>
+  </div>
+  
+<script>
+  var currentIndex = 0;
+  var galleryImages = [];
+
+  // opens the gallery modal with multiple images
+  function openGalleryModal(mainMediaSrc, mediaArray) {
+    var galleryModal = document.getElementById('galleryModal');
+    var galleryImage = document.getElementById('galleryImage');
+
+    galleryImage.src = mainMediaSrc;
+    galleryImages = mediaArray;
+
+    galleryModal.style.display = 'flex';
+  }
+
+  //  closes the gallery modal
+  function closeGalleryModal() {
+    document.getElementById('galleryModal').style.display = 'none'; // hides the modal
+  }
+
+  // navigate through the gallery
+  function navigateGallery(direction) {
+    currentIndex = (currentIndex + direction + galleryImages.length) % galleryImages.length;
+    document.getElementById('galleryImage').src = galleryImages[currentIndex];
+  }
+</script>
+
+<script>
+  // opens the signup/login modal
+  function openSignUp() {
+    // alerts if use is already logged in
+    if (isLoggedIn()) {
+      alert('You are already logged in.');
+    } else {
+      window.location.href = 'signup.html';
+    }
+  }
+
+  // checks if user is logged in
+  function isLoggedIn() {
+    const user = localStorage.getItem('currentUser');
+    return user !== null;
+  }
+</script>
+
+	<script src="accountPopup.js"></script>
+	<script src="script.js"></script>
+    <script src="script2.js"></script>
+  
+</body>
+</html>
