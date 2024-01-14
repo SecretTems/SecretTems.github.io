@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: url('images/passback.png') center/cover;
+        }
+
+        .signup-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid black;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            color: #555;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="signup-container">
+    <h2>Sign Up</h2>
+    <label for="new-username">Username:</label>
+    <input type="text" id="new-username" required>
+
+    <label for="new-password">Password:</label>
+    <input type="password" id="new-password" required>
+
+    <button onclick="attemptSignUp()">Sign Up</button>
+
+    <p>Already have an account? <a href="index.html">Login</a></p>
+
+    <button onclick="goToHomePage()"> ← Go Back to Home Page</button>
+</div>
+
+<script>
+    function attemptSignUp() {
+        var newUsername = document.getElementById("new-username").value;
+        var newPassword = document.getElementById("new-password").value;
+
+        // Read existing accounts from localStorage
+        var accounts = JSON.parse(localStorage.getItem('accounts')) || [];
+
+        // Check if the username already exists
+        var existingUser = accounts.find(account => account.username === newUsername);
+        if (existingUser) {
+            alert("Username already exists. Please choose a different one.");
+            return false;
+        }
+
+        // Add the new account to the array
+        accounts.push({ username: newUsername, password: newPassword });
+
+        // Write the updated array back to localStorage
+        localStorage.setItem('accounts', JSON.stringify(accounts));
+
+        // Automatically log in the new user
+        localStorage.setItem('currentUser', newUsername);
+        window.location.href = "cssclass.html";
+
+        return false;
+    }
+
+    function goToHomePage() {
+        window.location.href = "cssclass.html";
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strands/Courses</title>
+    <style>
+		/* Applies "box-sizing: border-box" globally to include padding and border in element dimensions */
+	    * {
+            box-sizing: border-box;
+        }
+		
+		.account-popup {
+			display: none;
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: rgba(0, 0, 0, 0.5);
+			justify-content: center;
+			align-items: center;
+			z-index: 2;
+		}
+
+		.popup-content {
+			background-color: #fff;
+			padding: 20px;
+			border-radius: 8px;
+			border: 2px solid black;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+			position: relative;
+			z-index: 3;
+			width: 250px;
+			height: 160px;
+		}
+
+		.popup-content .close {
+			position: absolute;
+			top: 10px;
+			right: 10px;
+			font-size: 20px;
+			cursor: pointer;
+		}
+		
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0px;
+            background-color: #f5f0ec;
+			
+        }
+
+        .node {
+			border: 5px solid #333;
+			border-radius: 5px;
+			padding: 5px;
+			margin: 5px;
+			text-align: center;
+			max-width: 200px;
+			position: relative;
+		}
+
+        .sub-node {
+            border: 2px solid #333;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px;
+            text-align: center;
+            max-width: 200px;
+        }
+
+        .header {
+            padding: 7px;
+            text-align: center;
+            background-image: url(images/ictback.jpg);
+            background-size: cover;
+            background-position: center;
+            text-shadow: -1px -1px 2px #000,
+			1px -1px 2px #000,
+			-1px 1px 2px #000,
+			1px 1px 2px #000;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 32px;
+        }
+
+        .navbar {
+            overflow: hidden;
+            background-color: #698696;
+        }
+
+        .navbar a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+
+        .navbar a.right {
+            float: right;
+        }
+
+        .navbar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+				
+		ul {
+			list-style-type: none;
+			margin: 0;
+			padding: 0;
+			text-align: center;
+		}
+		
+		ul li {
+			margin-bottom: 7px;
+		}
+		
+        h2 {
+            padding: 10px;
+            margin: 0;
+        }
+
+        /* style for senior high school strands */
+        h2#shs {
+            background-color: #93c5fd;
+			text-align: center;
+        }
+
+        /* style for college strands */
+        h2#college {
+            background-color: #ffd966;
+			text-align: center;
+        }
+		
+		.footer {
+		  padding: 10px;
+			color: white;
+			text-align: center;
+			background: #698696;
+			bottom: 0;
+			width: 100%;
+		}
+    </style>
+</head>
+<body>
+
+<div id="accountPopup" class="account-popup">
+  <div class="popup-content">
+    <span class="close" onclick="closeAccountPopup()">&times;</span>
+    <p id="accountUsername"></p>
+    <button onclick="logout()">Logout</button>
+  </div>
+</div>
+
+<div class="header">
+  <div><a href="cssclass.html"><img src="images/aaa.png" alt="asia logo" style="width:150px;height:150px;" class="left"></a></div>
+  <h1>Asia Pacific College of Business and Arts</h1>
+  <p><strong>Ad majorem Dei gloriam.</strong></p>
+  <p><strong>404600</strong></p>
+</div>
+
+<div class="navbar">
+  <a href="cssclass.html" target="_self">Home</a>
+  <a href="courses.html" target="_self">Courses</a>
+  <a href="Staff.html" target="_self">Staff</a>
+  <a href="activities.html" target="_self">Activities/News</a>
+  <a href="about.html" target="_self">Contacts/Info</a>
+  <a href="faq.html" target="_self">FAQs</a>
+  <a href="#" onclick="openSignUp()" style="float: right;">Sign Up/Login</a>
+  <a href="#" onclick="openAccountPopup()" style="float: right;">Account</a>
+  <a href="download/getgot.mp4" onclick="openFilesPage()" id="filesLinkContainer" style="display: none;">TOP SECRET FILES</a>
+</div>
+
+    <!-- List of senior high school strands -->
+    <h2 id="shs">Senior High School Strands</h2>
+	<br>
+    <ul>
+		<li>Science, Technology, Engineering, and Mathematics (STEM)</li>
+        <li>Accountancy, Business, and Management (ABM)</li>
+        <li>Humanities and Social Sciences (HUMSS)</li>
+        <li>General Academic Strand (GAS)</li>
+        <li>Home Economics (HE)</li>
+        <li>Information and Communication Technology (ICT)</li>
+		<li>Industrial Arts (IA)</li>
+    </ul>
+	<br>
+    <!-- List of college strands -->
+    <h2 id="college">College Courses</h2>
+	<br>
+    <ul>
+        <li>Bachelor in Technical-Vocational Teacher Education (BTVTEd)</li>
+        <li>Diploma in Hospitality and Tourism Technology (DHTT)</li>
+    </ul>	
+	<br>
+	
+<script>
+  // opens the signup/login modal
+  function openSignUp() {
+    // alerts if use is already logged in
+    if (isLoggedIn()) {
+      alert('You are already logged in.');
+    } else {
+      window.location.href = 'signup.html';
+    }
+  }
+
+  // checks if user is logged in
+  function isLoggedIn() {
+    const user = localStorage.getItem('currentUser');
+    return user !== null;
+  }
+</script>
+
+	<script src="accountPopup.js"></script>
+	<script src="script.js"></script>
+    <script src="script2.js"></script>
+
+<div class="footer">
+  <h2>© 2023 APCBA. All rights reserved.</h2>
+</div>
+
+</body>
+</html>
