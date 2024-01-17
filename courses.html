@@ -114,10 +114,14 @@
 			margin: 0;
 			padding: 0;
 			text-align: center;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
 		}
 		
 		ul li {
 			margin-bottom: 7px;
+			display: block;
 		}
 		
         h2 {
@@ -135,6 +139,47 @@
         h2#college {
             background-color: #ffd966;
 			text-align: center;
+        }
+		
+		.popup-node {
+            border: 2px solid #333;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px;
+            text-align: center;
+            max-width: 1000px;
+            position: relative;
+        }
+		
+        .popup {
+            display: none;
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 15px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+			width: 600px;
+        }
+		
+		.popup p {
+			flex: 1;
+			text-align: left;
+		}
+
+        .popup img {
+			max-width: 50%;
+			max-height: 50%;
+			margin-right: 5px;
+			margin-left: 10px;
+        }
+
+        .popup-node:hover .popup {
+            display: flex;
         }
 		
 		.footer {
@@ -158,7 +203,7 @@
 </div>
 
 <div class="header">
-  <div><a href="cssclass.html"><img src="images/aaa.png" alt="asia logo" style="width:150px;height:150px;" class="left"></a></div>
+  <div><a href="cssclass.html"><img src="images/aaa.png" alt="asia logo" style="width:150px;height:150px;"></a></div>
   <h1>Asia Pacific College of Business and Arts</h1>
   <p><strong>Ad majorem Dei gloriam.</strong></p>
   <p><strong>404600</strong></p>
@@ -173,30 +218,103 @@
   <a href="faq.html" target="_self">FAQs</a>
   <a href="#" onclick="openSignUp()" style="float: right;">Sign Up/Login</a>
   <a href="#" onclick="openAccountPopup()" style="float: right;">Account</a>
-  <a href="download/getgot.mp4" onclick="openFilesPage()" id="filesLinkContainer" style="display: none;">TOP SECRET FILES</a>
+  <a href="files.html" id="filesLinkContainer">Files/Downloads</a>
 </div>
 
-    <!-- List of senior high school strands -->
-    <h2 id="shs">Senior High School Strands</h2>
-	<br>
+<!-- List of senior high school strands -->
+<h2 id="shs">Senior High School Strands</h2>
+<br>
     <ul>
-		<li>Science, Technology, Engineering, and Mathematics (STEM)</li>
-        <li>Accountancy, Business, and Management (ABM)</li>
-        <li>Humanities and Social Sciences (HUMSS)</li>
-        <li>General Academic Strand (GAS)</li>
-        <li>Home Economics (HE)</li>
-        <li>Information and Communication Technology (ICT)</li>
-		<li>Industrial Arts (IA)</li>
+		<li class="popup-node">Science, Technology, Engineering, and Mathematics (STEM)	
+			<div class="popup">
+				<p>
+					The STEM strand in SHS is an inquiry and research-based program. It exposes students to more complex mathematics and science concepts and aims to serve as a foundation for their future college degrees.
+					Through various projects and research entailed, students develop problem-solving skills where they can apply scientific, technological, mathematical, and engineering concepts. 
+				</p>
+				<img class="popup-img" src="images/logos/STEM.png" alt="STEM Logo">
+			</div>
+		</li>
+		<li class="popup-node">Information and Communication Technology (ICT)
+			<div class="popup">
+				<p>	
+					ICT students gain knowledge and skills needed to effectively apply, use and manage technology when solving problems specifically related to information and communication.
+					Classes provide a human and organizational focus on technology–teaching students how to be effective users of technology.
+				</p>
+				<img class="popup-img" src="images/logos/ICT.png" alt="ICT Logo">
+			</div>
+		</li>
+        <li class="popup-node">Accountancy, Business, and Management (ABM)
+			<div class="popup">
+				<p>
+					The ABM (Accountancy, Business, and Management) Strand is designed for students who are interested in business, finance, entrepreneurship, and accounting.
+					The curriculum of the ABM strand provides a strong foundation in the principles of business and management, as well as financial and accounting concepts.
+				</p>
+				<img class="popup-img" src="images/logos/ABM.png" alt="ABM Logo">
+			</div>
+		</li>
+        <li class="popup-node">Humanities and Social Sciences (HUMSS)
+			<div class="popup">
+				<p>
+					Humanities and Social sciences deals with studying the diversity of human behaviours and interaction in social, cultural,environmental,economic and political contexts.
+					In this strand you will encounter the future lawyer, teacher, police, politician, writer and etc.
+				</p>
+				<img class="popup-img" src="images/logos/HUMSS.png" alt="HUMMS Logo">
+			</div>
+		</li>
+        <li class="popup-node">General Academic Strand (GAS)
+			<div class="popup">
+				<p>
+					The GAS strand is created to cater to students who prefer a broader range of studies rather than specific fields.
+					It offers SHS students the flexibility to choose electives from various strands, which helps in choosing a university degree.
+				</p>
+				<img class="popup-img" src="images/logos/GAS.png" alt="GAS Logo">
+			</div>
+		</li>
+        <li class="popup-node">Home Economics (HE)
+			<div class="popup">
+				<p>
+					In this strand, students will be trained with livelihood skills that they can use for employment or in starting their own business.
+					Bataan National High School-Senior High School offers Cookery, Dressmaking, Bread and Pastry and Food and Beverages under Home Economics.
+				</p>
+				<img class="popup-img" src="images/logos/HE.png" alt="HE Logo">
+			</div>
+		</li>
+		<li class="popup-node">Industrial Arts (IA)
+			<div class="popup">
+				<p>
+					The Industrial Arts strand helps students develop their technical skills. These skills are useful for industry jobs, including carpentry, automotive services,
+					electronics, plumbing, welding, and many more. In fact, this strand aims to produce field experts skilled in various technical facets.
+				</p>
+				<img class="popup-img" src="images/logos/IA.png" alt="IA Logo">
+			</div>
+		</li>
     </ul>
 	<br>
-    <!-- List of college strands -->
-    <h2 id="college">College Courses</h2>
-	<br>
+<!-- List of college strands -->
+<h2 id="college">College Courses</h2>
+<br>
     <ul>
-        <li>Bachelor in Technical-Vocational Teacher Education (BTVTEd)</li>
-        <li>Diploma in Hospitality and Tourism Technology (DHTT)</li>
+        <li class="popup-node">Bachelor in Technical-Vocational Teacher Education (BTVTEd)
+			<div class="popup">
+				<p>
+					The (BTVTEd) is a four (4) year collegiate program under the Institute of Arts, Sciences and Teacher Education.
+					It is a program for individuals intending to advance a career in (TLE) to Junior High School, Senior High School and (TVET) students. The program equips learners with
+					adequate and relevant competencies in teaching specific areas in (IA) or (HE), (ICT) and Agri-Fishery Arts (the four areas of technical and vocational track of the Senior High School Program) as mandated by the (CHED).
+				</p>
+				<img class="popup-img" src="images/logos/EDUC.png" alt="BTVTEd Logo">
+			</div>
+		</li>
+        <li class="popup-node">Diploma in Hospitality and Tourism Technology (DHTT)
+			<div class="popup">
+				<p>
+					The Tourism, Hotel and Restaurant Technology program will equip students with competencies that are needed to execute operational tasks and management functions in food production (culinary),
+					accommodation, food and beverage service, tourism planning and product development, events planning, travel and tour operations and other emerging sectors of hospitality and tourism industry.
+				</p>
+				<img class="popup-img" src="images/logos/HTT.png" alt="DHTT Logo">
+			</div>
+		</li>
     </ul>	
-	<br>
+<br>
 	
 <script>
   // opens the signup/login modal

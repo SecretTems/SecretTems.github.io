@@ -19,23 +19,13 @@ function updateFilesLinkVisibility() {
     if (filesLinkContainer) {
         if (isLoggedIn()) {
             filesLinkContainer.style.display = 'block';
-        } else {
-            filesLinkContainer.style.display = 'none';
 
-            // Alert only if the user is trying to access the Files
-            //if (window.location.pathname.includes('files.html')) {
-            //    alert('You need to be logged in to access Files.');
-            //}
+            // alerts user to login
+            filesLinkContainer.addEventListener('click', function(event) {
+                event.preventDefault();
+                alert('You need to be logged in to access this page.');
+            });
         }
-    }
-}
-
-function openFilesPage() {
-    // checks if the user is logged in before navigating to the Files page
-    if (isLoggedIn()) {
-        window.location.href = 'download/getgot.mp4';
-    } else {
-        alert('You need to be logged in to access Files.');
     }
 }
 
