@@ -17,16 +17,23 @@ function isLoggedIn() {
 function updateFilesLinkVisibility() {
     const filesLinkContainer = document.getElementById('filesLinkContainer');
     if (filesLinkContainer) {
-        if (isLoggedIn()) {
-            filesLinkContainer.style.display = 'block';
-
-            // alerts user to login
-            filesLinkContainer.addEventListener('click', function(event) {
-                event.preventDefault();
-                alert('You need to be logged in to access this page.');
-            });
-        }
+        filesLinkContainer.addEventListener('click', function(event) {
+            if (!isLoggedIn()) {
+				event.preventDefault();
+				alert('You need to be logged in to access this page.'); // alerts user to login
+				return false;
+			}
+		});
     }
+}
+
+function toggleEasterEgg() {
+  const easterEggFileBox = document.getElementById('easterEggFileBox');
+  easterEggFileBox.style.display = (easterEggFileBox.style.display === 'none') ? 'block' : 'none';
+}
+
+function revealEasterEgg() {
+  toggleEasterEgg();
 }
 
 // logs out user
