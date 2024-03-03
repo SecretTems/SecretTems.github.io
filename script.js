@@ -1,9 +1,11 @@
-// redirects to signup if not logged in but alerts if logged in
-function openSignUp() {
+// ̶r̶e̶d̶i̶r̶e̶c̶t̶s̶ ̶t̶o̶ ̶s̶i̶g̶n̶u̶p̶ ̶i̶f̶ ̶n̶o̶t̶ ̶l̶o̶g̶g̶e̶d̶ ̶i̶n̶ ̶b̶u̶t̶ ̶a̶l̶e̶r̶t̶s̶ ̶i̶f̶ ̶l̶o̶g̶g̶e̶d̶ ̶i̶n̶
+// since i updated the acc system to work with githubs oauth, itll be hard to update everything related to the old acc system
+// so ill just keep some stuff from the old system and make it work with
+function openLogin() {
   if (isLoggedIn()) {
     alert('You are already logged in.');
   } else {
-    window.location.href = 'signup.html';
+    window.location.href = 'login.html';
   }
 }
 
@@ -25,15 +27,6 @@ function updateFilesLinkVisibility() {
 			}
 		});
     }
-}
-
-function toggleEasterEgg() {
-  const easterEggFileBox = document.getElementById('easterEggFileBox');
-  easterEggFileBox.style.display = (easterEggFileBox.style.display === 'none') ? 'block' : 'none';
-}
-
-function revealEasterEgg() {
-  toggleEasterEgg();
 }
 
 // logs out user
