@@ -1,6 +1,6 @@
 // ̶r̶e̶d̶i̶r̶e̶c̶t̶s̶ ̶t̶o̶ ̶s̶i̶g̶n̶u̶p̶ ̶i̶f̶ ̶n̶o̶t̶ ̶l̶o̶g̶g̶e̶d̶ ̶i̶n̶ ̶b̶u̶t̶ ̶a̶l̶e̶r̶t̶s̶ ̶i̶f̶ ̶l̶o̶g̶g̶e̶d̶ ̶i̶n̶
 // since i updated the acc system to work with githubs oauth, itll be hard to update everything related to the old acc system
-// so ill just keep some stuff from the old system and make it work with
+// so ill just keep some stuff from the old system and make it work with the new
 function openLogin() {
   if (isLoggedIn()) {
     alert('You are already logged in.');

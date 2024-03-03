@@ -15,6 +15,8 @@ function openAccountPopup() {
     const accountPopup = document.getElementById('accountPopup');
     const usernameContainer = document.getElementById('accountUsername');
 
+    console.log('Is logged in:', isLoggedIn());
+
     // checks if the user is logged in
     if (isLoggedIn()) {
         // makes "Logged in as" paragraph
@@ -85,7 +87,6 @@ function openAccountPopup() {
     }
 }
 
-
 // delete account function
 function deleteAccount() {
     // Retrieve the GitHub access token from the local storage
@@ -110,3 +111,40 @@ function deleteAccount() {
     })
     .catch(error => console.error('Error deleting account:', error));
 }
+
+function handleGitHubAuth() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get('code');
+    
+    if (code) {
+        // makes a post request to github to exchange it for an access token
+        // this should be handled on the serverside for better security but whatever
+        fetch('https://github.com/login/oauth/access_token', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                client_id: '398b25a5f6f7b18b00b1',
+                client_secret: '6ed30a96805830c67b92a050aba5c7abe52131d0',
+                code: code,
+                redirect_uri: 'https://secrettems.github.io/index.html'
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            const accessToken = data.access_token;
+            // Save the access token to localStorage
+            localStorage.setItem('githubAccessToken', accessToken);
+            console.log('GitHub Auth successful!');
+            openAccountPopup(); // Open the account popup after successful login
+        })
+        .catch(error => console.error('Error exchanging code for access token:', error));
+    } else {
+        // handles error or unauthorized access
+        console.error('GitHub authentication error: No code provided.');
+    }
+}
+
+// calls handleGitHubAuth() on page load
+document.addEventListener('DOMContentLoaded', handleGitHubAuth);
