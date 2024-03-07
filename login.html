@@ -99,6 +99,7 @@
 	function handleGitHubAuth() {
         const urlParams = new URLSearchParams(window.location.search);
         const code = urlParams.get('code');
+		console.log('Code:', code); // logs stuff
         
         if (code) {
             // makes a post request to github to exchange it for an access token
