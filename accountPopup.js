@@ -1,6 +1,7 @@
 // checks user is logged in with github
 function isLoggedIn() {
     const accessToken = localStorage.getItem('githubAccessToken');
+	console.log('Access Token:', accessToken); // logs access token for testing
     return accessToken !== null;
 }
 
@@ -134,10 +135,11 @@ function handleGitHubAuth() {
         .then(response => response.json())
         .then(data => {
             const accessToken = data.access_token;
-            // Save the access token to localStorage
+            // saves access token to localStorage
             localStorage.setItem('githubAccessToken', accessToken);
             console.log('GitHub Auth successful!');
             openAccountPopup(); // Open the account popup after successful login
+            console.log('Access Token:', accessToken); // log access token for testing purposes
         })
         .catch(error => console.error('Error exchanging code for access token:', error));
     } else {
@@ -145,6 +147,7 @@ function handleGitHubAuth() {
         console.error('GitHub authentication error: No code provided.');
     }
 }
+
 
 // calls handleGitHubAuth() on page load
 document.addEventListener('DOMContentLoaded', handleGitHubAuth);
