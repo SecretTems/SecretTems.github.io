@@ -58,20 +58,35 @@
         button:hover {
             background-color: #0056b3;
         }
+		
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+        }
     </style>
 </head>
 <body>
 
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+
 <div class="login-container">
     <h2>Login</h2>
+	
+    <div class="button-container">
+        <button onclick="loginWithFacebook()">Login with Facebook</button>
+        <button onclick="loginWithGitHub()">Login with GitHub</button>
+    </div>
 
-    <button onclick="loginWithGitHub()">Login with GitHub</button>
-
-    <p>Don't have an account? <a href="https://github.com/signup">You can sign up on GitHub</a></p>
+    <p>Don't have an account? You can sign up on <a href="https://github.com/signup">GitHub</a> or <a href="https://www.facebook.com/signup">Facebook</a></p>
     
     <button onclick="goToHomePage()"> ← Go Back to Home Page</button>
 </div>
 
+
+<!-- GITHUB LOGIN SCRIPT -->
 <script>
 	function loginWithGitHub() {
         window.location.href = 'https://github.com/login/oauth/authorize?client_id=398b25a5f6f7b18b00b1&redirect_uri=https://secrettems.github.io/index.html';
@@ -129,5 +144,61 @@
     document.addEventListener('DOMContentLoaded', handleGitHubAuth);
 </script>
 
+<!-- FACEBOOK LOGIN SCRIPT -->
+<!-- Due to not being able to verify meta devs app program, this whole script is currently useless -->
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '3764843673800006',
+      cookie     : true,
+      xfbml      : true,
+      version    : 'v13.0'
+    });
+
+    FB.AppEvents.logPageView();
+
+    // checks login status on page load
+    FB.getLoginStatus(function(response) {
+      statusChangeCallback(response);
+    });
+  };
+
+  function statusChangeCallback(response) {
+    if (response.status === 'connected') {
+      getUserDetails();
+    }
+  }
+
+	// checks login state of user
+  function checkLoginState() {
+    FB.getLoginStatus(function(response) {
+      statusChangeCallback(response);
+    });
+  }
+
+	// 
+  function loginWithFacebook() {
+    FB.login(function(response) {
+      statusChangeCallback(response);
+    }, { scope: 'email' });
+  }
+
+	// grabs the users facebook profile and ID
+  function getUserDetails() {
+    FB.api('/me', { fields: 'name,email' }, function(response) {
+      console.log('Facebook User Data:', response);
+      window.location.href = "index.html";
+    });
+  }
+
+  // adds faceboks sdk tools
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "https://connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
 </body>
 </html>

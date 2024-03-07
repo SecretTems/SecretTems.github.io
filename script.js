@@ -35,7 +35,7 @@ function logout() {
   updateFilesLinkVisibility();
 }
 
-// call the function to update the visibility of the "Files" link after the DOM is fully loaded
+// call the function to update the visibility of the "files" link after the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', updateFilesLinkVisibility);
 
 
