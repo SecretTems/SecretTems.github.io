@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>APCBA</title>
+    <link rel="stylesheet" href="../repeated.css">
+    <style>
+        /* Navbar styles */
+        .facnav {
+            background-color: #333;
+            overflow: hidden;
+        }
+
+        .facnav a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+
+        .facnav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="../com_elemContainer"></div> <!-- Load common elements -->
+
+    <!-- Navigation bar -->
+    <div class="facnav">
+        <a href="#" onclick="openProfile()">Profile</a>
+        <a href="#" onclick="openStudents()">Students</a>
+        <!-- Add more navigation options based on account type -->
+    </div>
+
+    <script>
+        // Open the user's profile
+        function openProfile() {
+            // Retrieve user data from local storage
+            const userData = JSON.parse(localStorage.getItem('userData'));
+            if (userData) {
+                // Display user's name and account type
+                alert(`Name: ${userData.name}\nAccount Type: ${userData.accountType}`);
+            }
+        }
+
+        // student list thing. idk what to do yet
+        function openStudents() {
+            // gets account type from local storage
+            const accountType = localStorage.getItem('accountType');
+            if (accountType === 'Faculty') {
+                alert('List of students for faculty members');
+            } else {
+                alert('You do not have access to this section.');
+            }
+        }
+    </script>
+
+    <!-- Load scripts -->
+    <script src="../repscript.js"></script>
+    <script src="../accountPopup.js"></script>
+    <script src="../script.js"></script>
+    <script src="../script2.js"></script>
+
+    <!-- Footer -->
+    <div class="footer">
+        <h2>© 2023 Our School. All rights reserved.</h2>
+    </div>
+</body>
+</html>
